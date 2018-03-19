@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Rails DB Interactive</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+    <body class="main">
+
+        <div class="top-menu-actions">
+            <label for="model-files">Upload Model Files</label>
+            <input type="file" id="model-files" name="files[]" multiple />
+            <label for="schema-file">Upload Schema File</label>
+            <input type="file" id="schema-file"/>
+            <button id="toggle-model-menu">MODEL MENU</button>
+            <button id="toggle-canvas-menu">CANVAS MENU</button>
+            <button id="toggle-canvas">CANVAS</button>
+            <button id="toggle-notepads">MODEL DATA</button>
+        </div>
+
+        <canvas id="canvas" class="hide"></canvas>
+
+        <div class="canvas-menu">
+            <h3>Canvas Menu</h3>
+            <div class="canvas-btns">
+                <button id="transparent" class="colors fill">Eraser</button>
+                <button id="black" class="colors fill">Black Pen</button>
+                <button id="red" class=" colors fill">Red Pen</button>
+                <button id="green" class="colors fill">Green Pen</button>
+                <button id="blue" class="colors fill">Blue Pen</button>
+                <button id="yellow" class="colors fill">Yellow Pen</button>
+            </div>
+        </div>
+
+        <div class="model-menu">
+            <h3>Model Menu</h3>
+            <div class="model-btns">
+                <button class="fill" id="rotater-arrow">Add arrow</button>
+                <button class="fill" id="rotate-model">Rotate MODEL</button>
+                <button class="fill" id="font-size-plus">Font Size +</button>
+                <button class="fill" id="font-size-minus">Font Size -</button>
+                <button class="fill" id="resizeable">Resizeable</button>
+                <button class="fill" id="draggable">Draggable</button>
+            </div>
+        </div>
+
+        <output id="db-models"></output>
+
+        <div class="arrows"></div>
+
+        <div id="assoc-pad">No Associations Found</div>
+        <div id="attr-pad">No Attributes Found</div>
+
+        <h4 class="total-associations">Association Count</h4>
+        <h4 class="selected-model">Selected Model</h4>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pluralize/7.0.0/pluralize.js" integrity="sha256-nyT2UWJEbV1zdw2+NhE3P+oTS+DSzDEJv8qdypsyC08=" crossorigin="anonymous"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
