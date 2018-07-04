@@ -282,7 +282,7 @@ const handleModelFiles = (evt) => {
         reader.onload = (theFile => {
           return e => {
 
-              let modelFileLines = e.target.result.split('\n'); // Iterate through model file line by line
+              let modelFileLines = e.target.result.split('\n'); // to iterate through model file line by line
               let model = modelData(modelCount, modelFileLines);
               let modelContainer = modelBuilder(model);
               cssHandler(model, modelContainer);
