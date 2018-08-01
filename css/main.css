@@ -28,10 +28,10 @@ body {
   overflow-y: scroll;
 }
 
-
 footer {
   width: 50%;
 }
+
 button:hover {
   cursor: pointer;
 }
@@ -59,7 +59,6 @@ label:hover {
 input[type='file'] {
   display: none;
 }
-
 
 i {
   padding: 5px;
@@ -165,8 +164,6 @@ i:hover {
   -webkit-transition: 0.50s ease-in;
 }
 
-
-
 .left-btns:hover {
   cursor: pointer;
   background: black;
@@ -214,9 +211,9 @@ i:hover {
   background: linear-gradient(#cac531,#f3f9a7);
 }
 
- .none {
-   display: none;
- }
+.none {
+ display: none;
+}
 
 .controls {
   padding: 20px;
@@ -327,7 +324,6 @@ i:hover {
 .attributes {
   display: none;
 }
-
 
 @media only screen and (max-width: 1150px) {
 
