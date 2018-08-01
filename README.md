@@ -5,6 +5,9 @@ models with that information. With the help of HTML5 canvas as well as the inter
 of the visual models, a user can create a personalized diagram of their Rails database. This app is
 specifically targeted at users who are trying to learn an unfamiliar Rails database.
 
+## website url
+https://rails-db-interactive.herokuapp.com/
+
 ## How to use the Application
 To get the most from this application, it is highly recommended to only use this app on a decent sized monitor (24inch+) to allow for diagramming space. To begin diagramming, you must first upload your model files before uploading the schema.  The schema
 upload depends on data from the model files in order to combine them properly.

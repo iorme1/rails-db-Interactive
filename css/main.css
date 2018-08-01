@@ -10,40 +10,46 @@
 }
 
 html {
-  height: 100%;
+  min-height: 100%;
   font-size: 100%;
-  overflow:hidden;
 }
 
 body {
   min-height: 100%;
-  margin: 0;
-  background: linear-gradient(#5A5353, #A07178, #E6CCBE, #776274);
+  margin: 0px;
+  padding: 0px;
+  background: linear-gradient(#5A5353, #A07178, #E6CCBE, #776274) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   font-family: Georgia, "Times New Roman", Times, serif;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
+
+footer {
+  width: 50%;
+}
 button:hover {
   cursor: pointer;
 }
 
 label[for="model-files"] {
-   position: fixed;
-   left: 10px;
-   padding: 5px;
    border: 2px solid black;
    -webkit-border-radius: 5px;
    border-radius: 5px;
    background-color: whitesmoke;
+   padding: 3px;
 }
 
 label[for="schema-file"] {
-  position: fixed;
-  right: 10px;
-  padding: 5px;
   border: 2px solid black;
   -webkit-border-radius: 5px;
   border-radius: 5px;
   background: whitesmoke;
+  padding: 3px;
 }
 
 label:hover {
@@ -54,23 +60,30 @@ input[type='file'] {
   display: none;
 }
 
+
+i {
+  padding: 5px;
+}
+
+i:hover {
+  cursor: pointer;
+}
+
 #assoc-pad {
+  margin-top: 10px;
   font-size: 14px;
-  position: absolute;
-  right: 5px;
-  top: 500px;
   border-style: solid;
-  background: #E18A07;
   background: #A07178;
-  width: 160px;
-  height: 200px;
-  z-index: 1;
-  padding: 10px;
   text-align: center;
   box-shadow: 0px 0px 3px 4px black;
   border-radius: 25px;
   font-weight: bold;
   overflow-x: hidden;
+  z-index: 1;
+  padding: 10px;
+  font-weight: bold;
+  width: 100%;
+  height: 200px;
 }
 
 #assoc-pad > p:hover {
@@ -79,22 +92,20 @@ input[type='file'] {
 }
 
 #attr-pad {
+  margin-top: 10px;
   font-size: 14px;
-  position: absolute;
-  left: 5px;
-  top: 500px;
   border-style: solid;
   background: #A07178;
-  width: 160px;
-  height: 200px;
-  z-index: 1;
-  padding: 10px;
   text-align: center;
   box-shadow: 0px 0px 3px 4px black;
   border-radius: 25px;
   font-weight: bold;
   overflow-x: hidden;
-  resize: both;
+  width: 100%;
+  height: 200px;
+  z-index: 1;
+  padding: 10px;
+  font-weight: bold;
 }
 
 #draggable {
@@ -102,19 +113,15 @@ input[type='file'] {
 }
 
 .top-menu-actions {
-  position: fixed;
-  border-style: solid;
-  border-left-style: none;
-  border-right-style: none;
-  width: 100%;
-  padding: 10px;
   background: #A07178;
+  text-align: center;
+  border-style: solid;
+  padding: 10px;
   z-index: 1;
   box-shadow: 0px 0px 3px 4px black;
-  text-align: center;
 }
 
-.top-menu-actions > button {
+.top-btns {
   width: 110px;
   height: 30px;
   margin-bottom: 5px;
@@ -125,46 +132,23 @@ input[type='file'] {
   background: white;
   letter-spacing: 0.5px;
   font-size: 10px;
-
 }
 
-
-.top-menu-actions > button:hover {
+.top-btns:hover {
   background: black;
   color: whitesmoke;
-  box-shadow: 2px 2px 2px 2px grey;
 }
 
-
-.canvas-menu {
-  margin-top: 71px;
-  right: 0px;
-  position: fixed;
-  background: #A07178;
-  width: 160px;
-  padding: 10px;
-  border: solid;
-  box-shadow: -5px 5px 5px 3px black;
-  border-radius: 10px;
-  transition: .5s;
-  z-index: 1;
-}
-
-.canvas-menu > h3 {
-  text-align: center;
-}
-
-.canvas-btns > button {
+.sidebar-btns {
+  font-size: 12px;
+  margin: 2px;
+  vertical-align: middle;
   background-color: white;
   position: relative;
-  display:block;
-  height: 45px;
-  width: 150px;
-  margin: 10px 7px;
-  padding: 2px 2px;
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 1px;
+  width: 100px;
+  height: 35px;
+  padding: 5px;
+  font-weight: 600;
   color: #383736;
   border: 2px #383736 solid;
   border-radius: 4px;
@@ -181,96 +165,12 @@ input[type='file'] {
   -webkit-transition: 0.50s ease-in;
 }
 
-.canvas-btns > button:hover {
+
+
+.left-btns:hover {
   cursor: pointer;
   background: black;
   color: white;
-}
-
-.model {
-  text-align: center;
-  position: absolute;
-  border-radius: 50%;
-  width: 120px;
-  height: 66px;
-  resize: both;
-  overflow: hidden;
-  font-family: Copperplate,"Copperplate Gothic Light",fantasy,Helvetica Neue,Helvetica,Arial,sans-serif;
-  background: linear-gradient(white,#A07178);
-  background-size: contain;
-  box-shadow: 3px 3px 3px 3px black;
-  padding: 10px;
-  font-weight: bold;
-
-}
-
-.model:hover {
-  cursor: pointer;
-}
-
-.associations {
-  display: none;
-}
-
-.attributes {
-  display: none;
-}
-
-.highlight {
-  background: linear-gradient(#cac531,#f3f9a7);
-}
-
-.model-menu {
-  margin-top: 71px;
-  left: 0px;
-  position: fixed;
-  background: #A07178;
-  width: 160px;
-  padding: 10px;
-  border: solid;
-  box-shadow: 5px 5px 5px 5px black;
-  border-radius: 10px;
-  z-index: 1;
-  transition: .5s;
-}
-
-.model-menu > h3 {
-  text-align: center;
-}
-
-.hide-model-menu {
-  left: -250px;
-}
-
-.hide-canvas-menu {
-  right: -250px;
-}
-
-.model-btns > button {
-  position: relative;
-  display:block;
-  height: 45px;
-  width: 150px;
-  margin: 10px 7px;
-  padding: 2px 2px;
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 1px;
-  color: #383736;
-  border: 2px #383736 solid;
-  border-radius: 4px;
-  box-shadow: 0.7px 0.7px 1.3px 2.4px black;
-  text-transform: uppercase;
-  outline: 0;
-  overflow:hidden;
-  background-color: white;
-  z-index: 1;
-  cursor: pointer;
-  transition:         0.50s ease-in;
-  -o-transition:      0.50s ease-in;
-  -ms-transition:     0.50s ease-in;
-  -moz-transition:    0.50s ease-in;
-  -webkit-transition: 0.50s ease-in;
 }
 
 .fill:before {
@@ -289,12 +189,68 @@ input[type='file'] {
   top: 0;
 }
 
-.model-btns > button {
-  display: block;
-  margin-bottom: 0.5em;
+.model {
+  text-align: center;
+  position: absolute;
+  border-radius: 50%;
+  width: 120px;
+  height: 66px;
+  resize: both;
+  overflow: hidden;
+  font-family: Copperplate,"Copperplate Gothic Light",fantasy,Helvetica Neue,Helvetica,Arial,sans-serif;
+  background: linear-gradient(white,#A07178);
+  background-size: contain;
+  box-shadow: 3px 3px 3px 3px black;
+  padding: 30px;
+  font-weight: bold;
+  z-index: 99;
 }
 
-.model-btns > button:hover {
+.model:hover {
+  cursor: pointer;
+}
+
+.highlight {
+  background: linear-gradient(#cac531,#f3f9a7);
+}
+
+ .none {
+   display: none;
+ }
+
+.controls {
+  padding: 20px;
+  background: #A07178;
+  border: solid;
+  transition: .5s;
+  text-align: center;
+  -webkit-transition: .6s;
+  -moz-transition: .6s;
+  -o-transition: .6s;
+  transition: .6s;
+  position: fixed;
+  margin: auto;
+  left: 0; bottom: 2px; right: 0;
+  width: 100%;
+}
+
+.hide-controls {
+  bottom: -200px;
+}
+
+.canvas-btns {
+  text-align: center;
+}
+
+.hide-model-menu {
+  display: none;
+}
+
+.hide-canvas-menu {
+  display: none;
+}
+
+.sidebar-btns:hover {
   cursor: pointer;
   background: black;
   color: white;
@@ -302,8 +258,9 @@ input[type='file'] {
 
 .arrows {
   position: absolute;
-  left: 400px;
-  bottom: 250px;
+  left: 50%;
+  top: 50%;
+  bottom: 50%;
 }
 
 .arrow {
@@ -328,27 +285,25 @@ input[type='file'] {
 }
 
 .total-associations {
-  position: absolute;
-  right: 20px;
-  bottom: 25px;
-  display: inline;
+  font-size: 2vw;
+  margin-top: 10px;
   text-align: center;
   color: whitesmoke;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   text-transform: uppercase;
   transition: 0.5s;
+  width: 100%;
 }
 
 .selected-model {
-  position: absolute;
-  left: 20px;
-  bottom: 25px;
-  display: inline;
+  font-size: 2vw;
+  margin-top: 10px;
   text-align: center;
   color: whitesmoke;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   text-transform: uppercase;
   transition: 0.5s;
+  width: 100%;
 }
 
 .opacity {
@@ -363,4 +318,58 @@ input[type='file'] {
 .selected-model::selection {
   background-color:Transparent;
   color: whitesmoke;
+}
+
+.associations {
+  display: none;
+}
+
+.attributes {
+  display: none;
+}
+
+
+@media only screen and (max-width: 1150px) {
+
+    .screen-size-warn {
+      display: block !important;
+      position: absolute;
+      right: 25%;
+      left: 25%;
+      top: 25%;
+      font-size: 30px;
+      color: white;
+    }
+
+    #attr-pad {
+      opacity: 0;
+    }
+
+    #assoc-pad {
+      opacity: 0;
+    }
+
+    .attr-info {
+      opacity: 0;
+    }
+
+    .assoc-info {
+      opacity: 0;
+    }
+
+    .controls {
+      opacity: 0;
+    }
+
+    .top-menu-actions {
+      opacity: 0;
+    }
+
+    .model {
+      opacity: 0;
+    }
+
+    .arrow {
+      opacity: 0;
+    }
 }

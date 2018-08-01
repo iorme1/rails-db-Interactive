@@ -1,11 +1,10 @@
 window.onload = function () {
 
-    document.querySelector('.model-btns').addEventListener('click', modelMenuHandler, false)
+    document.querySelector('.controls').addEventListener('click', modelMenuHandler, false)
     document.getElementById('model-files').addEventListener('change', handleModelFiles, false);
     document.getElementById('schema-file').addEventListener('change', handleSchemaFile, false);
     document.querySelector('.top-menu-actions').addEventListener('click', topMenuHandler, false);
     document.getElementById('toggle-notepads').addEventListener('click', notePadToggler, false);
-
     canvasApp();
 }
 
@@ -25,11 +24,11 @@ const modelMenuHandler = e => {
           case 'rotater-arrow':
               addArrow();
               break;
-          case 'font-size-plus':
-              adjustFont(button);
+          case 'enlarge-model':
+              resizeModel(button);
               break;
-          case 'font-size-minus':
-              adjustFont(button);
+          case 'shrink-model':
+              resizeModel(button);
               break;
           case 'rotate-model':
               modelRotator();
@@ -46,11 +45,8 @@ const topMenuHandler = e => {
         let button = e.target.id;
 
         switch (button) {
-            case 'toggle-model-menu':
-                toggleModelMenu();
-                break;
-            case 'toggle-canvas-menu':
-                toggleCanvasMenu();
+            case 'toggle-controls':
+                toggleControlMenu();
                 break;
             case 'toggle-canvas':
                 toggleCanvas(button);
@@ -70,23 +66,24 @@ const notePadToggler = () => {
 };
 
 
-const toggleModelMenu = () => {
+const toggleControlMenu = () => {
 
-    document.querySelector('.model-menu').classList.toggle('hide-model-menu');
+    document.querySelector('.controls').classList.toggle('hide-controls');
 };
-
-
-const toggleCanvasMenu = () => {
-
-   document.querySelector('.canvas-menu').classList.toggle('hide-canvas-menu');
-};
-
 
 const toggleCanvas = button => {
 
     document.getElementById('canvas').classList.toggle('hide');
     let canvasBtn = document.getElementById(`${button}`);
-    canvas.classList.contains('hide') ? canvasBtn.style.background = 'white' : canvasBtn.style.background = '#99e600';
+
+    if (canvas.classList.contains('hide')) {
+       canvasBtn.style.background = 'white';
+       canvasStatus.active = false;
+    } else {
+       canvasBtn.style.background = '#99e600';
+       canvasStatus.active = true;
+    }
+
 };
 
 
@@ -109,18 +106,23 @@ const dragActive = button => {
 
 const resizeActive = button => {
     //boolean to test to see if models are currently draggable
-    let noDrag = document.getElementsByClassName('model')[0].classList.contains('nodrag');
-    let models = document.querySelectorAll('.model');
-    let currentBtn = document.getElementById(`${button}`);
+    if  (document.getElementsByClassName('model')[0]) {
+      let noDrag = document.getElementsByClassName('model')[0].classList.contains('nodrag');
+      let models = document.querySelectorAll('.model');
+      let currentBtn = document.getElementById(`${button}`);
 
-    if (noDrag) {
-      return;
-      // elements are already resizeable / not draggable. so we do nothing and exit function
+      if (noDrag) {
+        return;
+        // elements are already resizeable / not draggable. so we do nothing and exit function
+      }
+
+      document.getElementById('draggable').style.background = 'white';
+      currentBtn.style.background = '#99e600';
+      models.forEach( m => m.classList.add('nodrag') );
+    }  else {
+      swal("No Active Models", "Please upload model files and schema file.", "warning");
     }
 
-    document.getElementById('draggable').style.background = 'white';
-    currentBtn.style.background = '#99e600';
-    models.forEach( m => m.classList.add('nodrag') );
 };
 
 
@@ -148,17 +150,37 @@ function rotateArrow() {
 }
 
 
-const adjustFont = button => {
+const resizeModel = button => {
 
     let currentBtn = document.getElementById(`${button}`);
     let modelName = document.querySelector('.selected-model').innerHTML;
     let modelClassName = pluralize(modelName.toLowerCase());
     let modelTitle = document.querySelector(`.${modelClassName}`).querySelector('.model-title');
+    let model = document.querySelector(`.${modelClassName}`)
 
     let font = window.getComputedStyle(modelTitle, null).getPropertyValue('font-size');
     let currentFontSize = parseInt(font);
 
-    currentBtn.id === 'font-size-plus' ? currentFontSize++ : currentFontSize-- ;
+    let width = window.getComputedStyle(model, null).getPropertyValue('width');
+    let currentWidth = parseInt(width);
+    let height = window.getComputedStyle(model, null).getPropertyValue('height');
+    let currentHeight = parseInt(height);
+
+
+    if (currentBtn.id === 'enlarge-model') {
+      currentFontSize+=3;
+      currentHeight+=10
+      currentWidth+=15
+
+    } else {
+      currentFontSize-=3;
+      currentHeight-=10
+      currentWidth-=15
+    }
+
+    modelTitle.style.fontSize = currentFontSize.toString() + 'px';
+    model.style.width = currentWidth.toString() + 'px';
+    model.style.height = currentHeight.toString() + 'px';
     modelTitle.style.fontSize = currentFontSize.toString() + 'px';
 };
 
@@ -193,6 +215,7 @@ function canvasApp() {
     canvas.style.position = 'absolute';
     canvas.height = windowHeight;
     canvas.width = windowWidth;
+    canvasPosition = canvas.getBoundingClientRect()
 
     context = canvas.getContext('2d');
     context.lineWidth = 2;
@@ -227,14 +250,16 @@ function canvasApp() {
 
     function GetStartPoints() {
           // This function sets start points
-          x1 = event.clientX;
-          y1 = event.clientY;
+
+          x1 = event.pageX - canvasPosition.left;
+          y1 = event.pageY - canvasPosition.top;
     }
 
     function GetEndPoints() {
         // This function sets end points
-        x2 = event.clientX;
-        y2 = event.clientY;
+
+          x2 = event.pageX - canvasPosition.left;
+          y2 = event.pageY - canvasPosition.top;
     }
 
     colorBtns = ['black', 'red', 'green', 'blue', 'yellow', 'transparent'];
@@ -249,6 +274,11 @@ function canvasApp() {
     };
 
     const draw = (color, button) => {
+
+        if (!canvasStatus.active) {
+          swal('Canvas Not Active', 'To be able to draw, you must activate the canvas. Click the canvas button in the top navigation.', "warning")
+        }
+
         if (color === 'transparent') {
           context.lineWidth = 40;
           context.globalCompositeOperation = "destination-out";
@@ -262,11 +292,16 @@ function canvasApp() {
 
     const changeBtnFocus = button => {
         document.querySelectorAll('.colors').forEach( btn => {
-            btn.style.background = 'white';
+            btn.style.color = '';
         });
-        button.style.background = '#99e600';
+        button.id == 'transparent' ? button.style.color = 'white' : button.style.color = button.id
     };
     colorBtnHandler(colorBtns);
+}
+
+
+const canvasStatus = {
+  active: false
 }
 
 
@@ -287,6 +322,7 @@ const handleModelFiles = (evt) => {
               let modelContainer = modelBuilder(model);
               cssHandler(model, modelContainer);
               document.getElementById('db-models').appendChild(modelContainer);
+
           }
         })(f);
         reader.readAsText(f);
@@ -395,13 +431,14 @@ const cssHandler = (model, modelContainer) => {
     modelContainer.style.left = model.left + 'px';
     modelContainer.style.top = model.top + 'px';
     modelContainer.querySelector('.model-title').style.fontSize = model.font;
+
     dragElement(modelContainer); // makes element draggable
 };
 
 
 const modelPositions = {
     left: 100,
-    top: 75,
+    top: 75
 };
 
 
@@ -438,7 +475,7 @@ const getFontSize = (modelCount) => {
     let font;
 
     if (modelCount <= 20) {
-      font = '15px';
+      font = '12px';
     } else if (modelCount >= 21 && modelCount <= 31) {
        font = '14px';
     } else {

@@ -3,58 +3,86 @@
   <head>
     <title>Rails DB Interactive</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/normalize.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="css/main.css">
   </head>
     <body class="main">
 
-        <div class="top-menu-actions">
-            <label for="model-files">Upload Model Files</label>
-            <input type="file" id="model-files" name="files[]" multiple />
-            <label for="schema-file">Upload Schema File</label>
-            <input type="file" id="schema-file"/>
-            <button id="toggle-model-menu">MODEL MENU</button>
-            <button id="toggle-canvas-menu">CANVAS MENU</button>
-            <button id="toggle-canvas">CANVAS</button>
-            <button id="toggle-notepads">MODEL DATA</button>
-        </div>
+      <canvas id="canvas" class="hide"></canvas>
 
-        <canvas id="canvas" class="hide"></canvas>
+      <div class="container-fluid">
 
-        <div class="canvas-menu">
-            <h3>Canvas Menu</h3>
-            <div class="canvas-btns">
-                <button id="transparent" class="colors fill">Eraser</button>
-                <button id="black" class="colors fill">Black Pen</button>
-                <button id="red" class=" colors fill">Red Pen</button>
-                <button id="green" class="colors fill">Green Pen</button>
-                <button id="blue" class="colors fill">Blue Pen</button>
-                <button id="yellow" class="colors fill">Yellow Pen</button>
+
+          <div class="row top-menu-actions sticky-top">
+            <div class="col-md-2">
+              <label for="model-files">Upload Model Files</label>
+              <input type="file" id="model-files" name="files[]" multiple />
             </div>
-        </div>
-
-        <div class="model-menu">
-            <h3>Model Menu</h3>
-            <div class="model-btns">
-                <button class="fill" id="rotater-arrow">Add arrow</button>
-                <button class="fill" id="rotate-model">Rotate MODEL</button>
-                <button class="fill" id="font-size-plus">Font Size +</button>
-                <button class="fill" id="font-size-minus">Font Size -</button>
-                <button class="fill" id="resizeable">Resizeable</button>
-                <button class="fill" id="draggable">Draggable</button>
+            <div class="col-8">
+              <button id="toggle-controls" class="top-btns">CONTROLS</button>
+              <button id="toggle-canvas" class="top-btns">CANVAS</button>
+              <button id="toggle-notepads" class="top-btns">MODEL DATA</button>
             </div>
+            <div class="col-2">
+              <label for="schema-file">Upload Schema File</label>
+              <input type="file" id="schema-file"/>
+            </div>
+          </div>
+
+            <div class="attr-info float-left">
+              <div id="attr-pad">No Attributes Found</div>
+              <h4 class="selected-model">Selected Model</h4>
+            </div>
+
+            <div class="screen-size-warn none">
+              Screen size is too small for diagramming. Please
+              adjust screen to an appropriate size.
+            </div>
+
+            <div class="assoc-info float-right">
+              <div id="assoc-pad">No Associations Found</div>
+              <h4 class="total-associations">Association Count</h4>
+            </div>
+
+
+          <output id="db-models"></output>
+          <div class="arrows"></div>
+
         </div>
 
-        <output id="db-models"></output>
+          <footer class="container-fluid">
+            <nav class="navbar fixed-bottom">
+              <div class="controls">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button class="fill sidebar-btns" id="rotater-arrow">arrow</button>
+                      <button  class="fill sidebar-btns" id="rotate-model">rotate</button>
+                      <button  class="fill sidebar-btns" id="enlarge-model">enlarge</button>
+                      <button class="fill sidebar-btns" id="shrink-model">shrink</button>
+                      <button  class="fill sidebar-btns" id="resizeable">resize</button>
+                      <button  class="fill sidebar-btns" id="draggable">drag</button>
 
-        <div class="arrows"></div>
+                      <i id="transparent" class="colors fas fa-eraser"> erase</i>
+                      <i id="black" class="colors fas fa-pen"> black</i>
+                      <i id="red" class="colors fas fa-pen"> red</i>
+                      <i id="green" class="colors fas fa-pen"> green</i>
+                      <i id="blue" class="colors fas fa-pen"> blue</i>
+                      <i id="yellow" class="colors fas fa-pen"> yellow</i>
+                    </div>
+                  </div>
+              </div>
+            </nav>
+          </footer>
 
-        <div id="assoc-pad">No Associations Found</div>
-        <div id="attr-pad">No Attributes Found</div>
+          <!-- <div class="sidebar-menu model-menu"></div> -->
 
-        <h4 class="total-associations">Association Count</h4>
-        <h4 class="selected-model">Selected Model</h4>
-
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pluralize/7.0.0/pluralize.js" integrity="sha256-nyT2UWJEbV1zdw2+NhE3P+oTS+DSzDEJv8qdypsyC08=" crossorigin="anonymous"></script>
         <script src="js/main.js"></script>
     </body>
