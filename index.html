@@ -10,11 +10,44 @@
   </head>
     <body class="main">
 
+      <!-- MODAL to display associations/attribures of visual models -->
+      <div class="modal fade" id="assoc-attr-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Associations & Attributes</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <div class="attr-info">
+                <div id="attr-pad">No Attributes Found</div>
+                <h4 class="selected-model">Selected Model</h4>
+              </div>
+
+              <div class="assoc-info">
+                <div id="assoc-pad">No Associations Found</div>
+                <h4 class="total-associations">Association Count</h4>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END MODAL -->
+
+      <!-- canvas -->
       <canvas id="canvas" class="hide"></canvas>
+      <!-- canvas end -->
+
 
       <div class="container-fluid">
-
-
+        <!-- Navbar menu -->
           <div class="row top-menu-actions sticky-top">
             <div class="col-md-2">
               <label for="model-files">Upload Model Files</label>
@@ -23,67 +56,63 @@
             <div class="col-8">
               <button id="toggle-controls" class="top-btns">CONTROLS</button>
               <button id="toggle-canvas" class="top-btns">CANVAS</button>
-              <button id="toggle-notepads" class="top-btns">MODEL DATA</button>
+              <!-- Button trigger modal -->
+              <button class="top-btns" data-toggle="modal" data-target="#assoc-attr-modal">
+                MODEL DATA
+              </button>
             </div>
             <div class="col-2">
               <label for="schema-file">Upload Schema File</label>
               <input type="file" id="schema-file"/>
             </div>
           </div>
+       <!-- Navbar end -->
 
-            <div class="attr-info float-left">
-              <div id="attr-pad">No Attributes Found</div>
-              <h4 class="selected-model">Selected Model</h4>
-            </div>
-
-            <div class="screen-size-warn none">
-              Screen size is too small for diagramming. Please
-              adjust screen to an appropriate size.
-            </div>
-
-            <div class="assoc-info float-right">
-              <div id="assoc-pad">No Associations Found</div>
-              <h4 class="total-associations">Association Count</h4>
-            </div>
-
-
+        <!-- visual models and dynmaic arrow output to middle of screen -->
           <output id="db-models"></output>
           <div class="arrows"></div>
+        <!-- Visual models/ dynamic arrows end -->
 
-        </div>
+        <!-- Screen warning for small browser size -->
+          <div class="screen-size-warn none">
+            Screen size is too small for diagramming. Please
+            adjust screen to an appropriate size.
+          </div>
+       <!-- End screen warning -->
+      </div>
 
-          <footer class="container-fluid">
-            <nav class="navbar fixed-bottom">
-              <div class="controls">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <button class="fill sidebar-btns" id="rotater-arrow">arrow</button>
-                      <button  class="fill sidebar-btns" id="rotate-model">rotate</button>
-                      <button  class="fill sidebar-btns" id="enlarge-model">enlarge</button>
-                      <button class="fill sidebar-btns" id="shrink-model">shrink</button>
-                      <button  class="fill sidebar-btns" id="resizeable">resize</button>
-                      <button  class="fill sidebar-btns" id="draggable">drag</button>
+      <!-- Bottom control menu -->
+      <footer class="container-fluid">
+        <nav class="navbar fixed-bottom">
+          <div class="controls">
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="fill sidebar-btns" id="rotater-arrow">arrow</button>
+                  <button class="fill sidebar-btns" id="rotate-model">rotate</button>
+                  <button class="fill sidebar-btns" id="enlarge-model">enlarge</button>
+                  <button class="fill sidebar-btns" id="shrink-model">shrink</button>
+                  <button class="fill sidebar-btns" id="resizeable">resize</button>
+                  <button class="fill sidebar-btns" id="draggable">drag</button>
 
-                      <i id="transparent" class="colors fas fa-eraser"> erase</i>
-                      <i id="black" class="colors fas fa-pen"> black</i>
-                      <i id="red" class="colors fas fa-pen"> red</i>
-                      <i id="green" class="colors fas fa-pen"> green</i>
-                      <i id="blue" class="colors fas fa-pen"> blue</i>
-                      <i id="yellow" class="colors fas fa-pen"> yellow</i>
-                    </div>
-                  </div>
+                  <i id="transparent" class="colors fas fa-eraser"> erase</i>
+                  <i id="black" class="colors fas fa-pen"> black</i>
+                  <i id="red" class="colors fas fa-pen"> red</i>
+                  <i id="green" class="colors fas fa-pen"> green</i>
+                  <i id="blue" class="colors fas fa-pen"> blue</i>
+                  <i id="yellow" class="colors fas fa-pen"> yellow</i>
+                </div>
               </div>
-            </nav>
-          </footer>
+          </div>
+        </nav>
+      </footer>
+    <!-- Bottom control menu end -->
 
-          <!-- <div class="sidebar-menu model-menu"></div> -->
-
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script
-        src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pluralize/7.0.0/pluralize.js" integrity="sha256-nyT2UWJEbV1zdw2+NhE3P+oTS+DSzDEJv8qdypsyC08=" crossorigin="anonymous"></script>
-        <script src="js/main.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pluralize/7.0.0/pluralize.js" integrity="sha256-nyT2UWJEbV1zdw2+NhE3P+oTS+DSzDEJv8qdypsyC08=" crossorigin="anonymous"></script>
+      <script src="js/main.js"></script>
+      <script src="js/canvas.js"></script>
     </body>
 </html>

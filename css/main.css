@@ -78,7 +78,7 @@ i:hover {
   border-radius: 25px;
   font-weight: bold;
   overflow-x: hidden;
-  z-index: 1;
+  z-index: -1;
   padding: 10px;
   font-weight: bold;
   width: 100%;
@@ -102,7 +102,7 @@ i:hover {
   overflow-x: hidden;
   width: 100%;
   height: 200px;
-  z-index: 1;
+  z-index: -1;
   padding: 10px;
   font-weight: bold;
 }
@@ -239,14 +239,6 @@ i:hover {
   text-align: center;
 }
 
-.hide-model-menu {
-  display: none;
-}
-
-.hide-canvas-menu {
-  display: none;
-}
-
 .sidebar-btns:hover {
   cursor: pointer;
   background: black;
@@ -305,6 +297,7 @@ i:hover {
 
 .opacity {
   opacity: 0;
+  display: none;
 }
 
 .total-associations::selection{
@@ -325,47 +318,30 @@ i:hover {
   display: none;
 }
 
+.modal-dialog {
+  position: absolute;
+  top: 50px;
+  right: 5px;
+  z-index: 10040;
+  overflow: auto;
+  overflow-y: auto;
+}
+
 @media only screen and (max-width: 1150px) {
 
-    .screen-size-warn {
-      display: block !important;
-      position: absolute;
-      right: 25%;
-      left: 25%;
-      top: 25%;
-      font-size: 30px;
-      color: white;
-    }
+  .screen-size-warn {
+    display: block !important;
+    position: absolute;
+    right: 25%;
+    left: 25%;
+    top: 25%;
+    font-size: 30px;
+    color: white;
+  }
 
-    #attr-pad {
-      opacity: 0;
-    }
-
-    #assoc-pad {
-      opacity: 0;
-    }
-
-    .attr-info {
-      opacity: 0;
-    }
-
-    .assoc-info {
-      opacity: 0;
-    }
-
-    .controls {
-      opacity: 0;
-    }
-
-    .top-menu-actions {
-      opacity: 0;
-    }
-
-    .model {
-      opacity: 0;
-    }
-
-    .arrow {
-      opacity: 0;
-    }
+  #attr-pad, #assoc-pad, .attr-info,
+  .assoc-info, .controls, .top-menu-actions,
+  .model, .arrow {
+    opacity: 0;
+  }
 }

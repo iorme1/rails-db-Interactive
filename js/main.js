@@ -1,13 +1,20 @@
-window.onload = function () {
+const models = {
+  modelCount: 0
+};
 
-    document.querySelector('.controls').addEventListener('click', modelMenuHandler, false)
+window.onload = function () {
+    document.querySelector('.controls').addEventListener('click', modelMenuHandler, false);
     document.getElementById('model-files').addEventListener('change', handleModelFiles, false);
     document.getElementById('schema-file').addEventListener('change', handleSchemaFile, false);
-    document.querySelector('.top-menu-actions').addEventListener('click', topMenuHandler, false);
-    document.getElementById('toggle-notepads').addEventListener('click', notePadToggler, false);
+    document.getElementById('toggle-controls').addEventListener('click', function() {
+      toggleControlMenu();
+    });
+    document.getElementById('toggle-canvas').addEventListener('click', function() {
+      toggleCanvas(this);
+    });
+
     canvasApp();
 }
-
 
 const modelMenuHandler = e => {
 
@@ -38,34 +45,6 @@ const modelMenuHandler = e => {
     e.stopPropagation();
 };
 
-
-const topMenuHandler = e => {
-
-    if (e.target !== e.currentTarget) {
-        let button = e.target.id;
-
-        switch (button) {
-            case 'toggle-controls':
-                toggleControlMenu();
-                break;
-            case 'toggle-canvas':
-                toggleCanvas(button);
-                break;
-        }
-    }
-    e.stopPropagation();
-};
-
-
-const notePadToggler = () => {
-
-    document.getElementById('assoc-pad').classList.toggle('hide');
-    document.getElementById('attr-pad').classList.toggle('hide');
-    document.querySelector('.total-associations').classList.toggle('opacity');
-    document.querySelector('.selected-model').classList.toggle('opacity');
-};
-
-
 const toggleControlMenu = () => {
 
     document.querySelector('.controls').classList.toggle('hide-controls');
@@ -74,23 +53,26 @@ const toggleControlMenu = () => {
 const toggleCanvas = button => {
 
     document.getElementById('canvas').classList.toggle('hide');
-    let canvasBtn = document.getElementById(`${button}`);
 
     if (canvas.classList.contains('hide')) {
-       canvasBtn.style.background = 'white';
-       canvasStatus.active = false;
+      button.style.background = 'white'
+      canvasStatus.active = false;
     } else {
-       canvasBtn.style.background = '#99e600';
-       canvasStatus.active = true;
+      button.style.background = '#99e600';
+      canvasStatus.active = true;
     }
 
 };
 
 
 const dragActive = button => {
-    // noDrag is a boolean that checks if models are currently draggable or not by selecting an arbitrary model's classlist
+
+    if (models.modelCount === 0) {
+      swal('No models available', 'Please upload your Rails model files.', "warning");
+      return;
+    }
+    // noDrag is a boolean that checks if models are currently draggable or not by checking an arbitrary model's classlist
     let noDrag = document.getElementsByClassName('model')[0].classList.contains('nodrag');
-    let models = document.querySelectorAll('.model');
     let currentBtn = document.getElementById(`${button}`);
 
     if (!noDrag) {
@@ -100,13 +82,13 @@ const dragActive = button => {
 
     document.getElementById('resizeable').style.background = 'white';
     currentBtn.style.background = '#99e600';
-    models.forEach( m => m.classList.remove('nodrag') );
+    document.querySelectorAll('.model').forEach(m => m.classList.remove('nodrag') );
 };
 
 
 const resizeActive = button => {
     //boolean to test to see if models are currently draggable
-    if  (document.getElementsByClassName('model')[0]) {
+    if (document.getElementsByClassName('model')[0]) {
       let noDrag = document.getElementsByClassName('model')[0].classList.contains('nodrag');
       let models = document.querySelectorAll('.model');
       let currentBtn = document.getElementById(`${button}`);
@@ -119,7 +101,7 @@ const resizeActive = button => {
       document.getElementById('draggable').style.background = 'white';
       currentBtn.style.background = '#99e600';
       models.forEach( m => m.classList.add('nodrag') );
-    }  else {
+    } else {
       swal("No Active Models", "Please upload model files and schema file.", "warning");
     }
 
@@ -151,6 +133,11 @@ function rotateArrow() {
 
 
 const resizeModel = button => {
+
+    if (models.modelCount === 0) {
+      swal('No models available', 'Please upload your Rails model files.', "warning");
+      return;
+    }
 
     let currentBtn = document.getElementById(`${button}`);
     let modelName = document.querySelector('.selected-model').innerHTML;
@@ -196,119 +183,14 @@ const modelRotator = () => {
 };
 
 
-function canvasApp() {
-    let canvas,
-      context,
-      x1,
-      y1,
-      x2,
-      y2,
-      isDown = false, //flag we use to keep track
-      windowHeight,
-      windowWidth,
-      colorBtns;
-
-    windowHeight = window.innerHeight;
-    windowWidth = window.innerWidth;
-
-    canvas = document.getElementById('canvas');
-    canvas.style.position = 'absolute';
-    canvas.height = windowHeight;
-    canvas.width = windowWidth;
-    canvasPosition = canvas.getBoundingClientRect()
-
-    context = canvas.getContext('2d');
-    context.lineWidth = 2;
-
-    window.addEventListener('resize', resizeCanvas, false);
-
-
-    function resizeCanvas() {
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
-        context.lineWidth = 2;
-    }
-
-    canvas.onmousedown = function (event) {
-        event = event || window.event;
-
-        // Now event is the event object in all browsers.
-        GetStartPoints();
-    };
-
-    canvas.onmouseup = function (event) {
-        event = event || window.event;
-
-        // Now event is the event object in all browsers.
-        GetEndPoints();
-
-        context.beginPath();
-        context.moveTo(x1, y1);
-        context.lineTo(x2, y2);
-        context.stroke();
-    };
-
-    function GetStartPoints() {
-          // This function sets start points
-
-          x1 = event.pageX - canvasPosition.left;
-          y1 = event.pageY - canvasPosition.top;
-    }
-
-    function GetEndPoints() {
-        // This function sets end points
-
-          x2 = event.pageX - canvasPosition.left;
-          y2 = event.pageY - canvasPosition.top;
-    }
-
-    colorBtns = ['black', 'red', 'green', 'blue', 'yellow', 'transparent'];
-
-    const colorBtnHandler = colorBtns => {
-        colorBtns.forEach(color => {
-            let currentBtn = document.getElementById(color);
-            currentBtn.addEventListener('click', () => {
-                draw(color, currentBtn);
-            }, false)
-        });
-    };
-
-    const draw = (color, button) => {
-
-        if (!canvasStatus.active) {
-          swal('Canvas Not Active', 'To be able to draw, you must activate the canvas. Click the canvas button in the top navigation.', "warning")
-        }
-
-        if (color === 'transparent') {
-          context.lineWidth = 40;
-          context.globalCompositeOperation = "destination-out";
-        } else {
-          context.strokeStyle = color;
-          context.lineWidth = 2;
-          context.globalCompositeOperation = "source-over";
-        }
-        changeBtnFocus(button);
-    };
-
-    const changeBtnFocus = button => {
-        document.querySelectorAll('.colors').forEach( btn => {
-            btn.style.color = '';
-        });
-        button.id == 'transparent' ? button.style.color = 'white' : button.style.color = button.id
-    };
-    colorBtnHandler(colorBtns);
-}
-
-
 const canvasStatus = {
   active: false
 }
 
-
 const handleModelFiles = (evt) => {
 
     let files = evt.target.files; // FileList object
-    let modelCount = files.length;
+    models.modelCount = files.length;
     // Loop through the FileList and create our html elements
     for (let i = 0, f; f = files[i]; i++) {
 
@@ -318,7 +200,7 @@ const handleModelFiles = (evt) => {
           return e => {
 
               let modelFileLines = e.target.result.split('\n'); // to iterate through model file line by line
-              let model = modelData(modelCount, modelFileLines);
+              let model = ModelData(models.modelCount, modelFileLines);
               let modelContainer = modelBuilder(model);
               cssHandler(model, modelContainer);
               document.getElementById('db-models').appendChild(modelContainer);
@@ -330,12 +212,12 @@ const handleModelFiles = (evt) => {
   };
 
 
-const modelData = (modelCount, modelFileLines) => {
+const ModelData = (modelCount, modelFileLines) => {
 
     let model = {};
 
     model.title = getModelName(modelFileLines);
-    model.associations =  getAssociations(modelFileLines);
+    model.associations = getAssociations(modelFileLines);
 
     //styles based on amount of models to be populated
     model.width = getWidth(modelCount);
@@ -629,6 +511,7 @@ function showInfo() {
         associationsPad.innerHTML = "No Associations Found";
     }
 
+    $('#assoc-attr-modal').modal('show');
     showTotalAssoc(currentModel); //display the total count of associations
 }
 
