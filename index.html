@@ -10,7 +10,7 @@
   </head>
     <body class="main">
 
-      <!-- MODAL to display associations/attribures of visual models -->
+      <!-- modal to display associations/attribures of visual models -->
       <div class="modal fade" id="assoc-attr-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
           <div class="modal-content">
@@ -23,13 +23,21 @@
             <div class="modal-body">
 
               <div class="attr-info">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4 class="selected-model">Selected Model</h4>
+                  </div>
+                </div>
                 <div id="attr-pad">No Attributes Found</div>
-                <h4 class="selected-model">Selected Model</h4>
               </div>
 
               <div class="assoc-info">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4 class="total-associations">Association Count</h4>
+                  </div>
+                </div>
                 <div id="assoc-pad">No Associations Found</div>
-                <h4 class="total-associations">Association Count</h4>
               </div>
 
             </div>
@@ -39,15 +47,15 @@
           </div>
         </div>
       </div>
-      <!-- END MODAL -->
+      <!-- end modal -->
 
       <!-- canvas -->
       <canvas id="canvas" class="hide"></canvas>
-      <!-- canvas end -->
+      <!-- end canvas -->
 
 
       <div class="container-fluid">
-        <!-- Navbar menu -->
+        <!-- navbar menu -->
           <div class="row top-menu-actions sticky-top">
             <div class="col-md-2">
               <label for="model-files">Upload Model Files</label>
@@ -56,7 +64,7 @@
             <div class="col-8">
               <button id="toggle-controls" class="top-btns">CONTROLS</button>
               <button id="toggle-canvas" class="top-btns">CANVAS</button>
-              <!-- Button trigger modal -->
+              <!-- button to trigger modal -->
               <button class="top-btns" data-toggle="modal" data-target="#assoc-attr-modal">
                 MODEL DATA
               </button>
@@ -66,22 +74,22 @@
               <input type="file" id="schema-file"/>
             </div>
           </div>
-       <!-- Navbar end -->
+       <!-- end navbar menu-->
 
         <!-- visual models and dynmaic arrow output to middle of screen -->
           <output id="db-models"></output>
           <div class="arrows"></div>
-        <!-- Visual models/ dynamic arrows end -->
+        <!-- end visual models/dynamic arrows -->
 
-        <!-- Screen warning for small browser size -->
+        <!-- screen warning for small browser size -->
           <div class="screen-size-warn none">
             Screen size is too small for diagramming. Please
             adjust screen to an appropriate size.
           </div>
-       <!-- End screen warning -->
+       <!-- end screen warning -->
       </div>
 
-      <!-- Bottom control menu -->
+      <!-- bottom control menu -->
       <footer class="container-fluid">
         <nav class="navbar fixed-bottom">
           <div class="controls">
@@ -105,7 +113,7 @@
           </div>
         </nav>
       </footer>
-    <!-- Bottom control menu end -->
+    <!-- end bottom control menu -->
 
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -274,22 +274,18 @@ i:hover {
 }
 
 .total-associations {
-  font-size: 2vw;
-  margin-top: 10px;
+  font-size: 16px;
+  margin-top: 15px;
   text-align: center;
-  color: whitesmoke;
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   text-transform: uppercase;
   transition: 0.5s;
   width: 100%;
 }
 
 .selected-model {
-  font-size: 2vw;
+  font-size: 16px;
   margin-top: 10px;
   text-align: center;
-  color: whitesmoke;
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   text-transform: uppercase;
   transition: 0.5s;
   width: 100%;
@@ -320,7 +316,7 @@ i:hover {
 
 .modal-dialog {
   position: absolute;
-  top: 50px;
+  top: 0px;
   right: 5px;
   z-index: 10040;
   overflow: auto;
@@ -341,7 +337,7 @@ i:hover {
 
   #attr-pad, #assoc-pad, .attr-info,
   .assoc-info, .controls, .top-menu-actions,
-  .model, .arrow {
+  .model, .arrow, .modal-dialog {
     opacity: 0;
   }
 }
