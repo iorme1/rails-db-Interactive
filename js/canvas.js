@@ -31,18 +31,16 @@ function canvasApp() {
         context.lineWidth = 2;
     }
 
-    canvas.onmousedown = function (event) {
-        event = event || window.event;
+    canvas.onmousedown = function (e) {
+        e = e || window.event;
 
-        // Now event is the event object in all browsers.
-        GetStartPoints(event);
+        GetStartPoints(e);
     };
 
-    canvas.onmouseup = function (event) {
-        event = event || window.event;
+    canvas.onmouseup = function (e) {
+        e = e || window.event;
 
-        // Now event is the event object in all browsers.
-        GetEndPoints(event);
+        GetEndPoints(e);
 
         context.beginPath();
         context.moveTo(x1, y1);
@@ -50,18 +48,18 @@ function canvasApp() {
         context.stroke();
     };
 
-    function GetStartPoints(event) {
+    function GetStartPoints(e) {
           // This function sets start points
 
-          x1 = event.pageX - canvasPosition.left;
-          y1 = event.pageY - canvasPosition.top;
+          x1 = e.pageX - canvasPosition.left;
+          y1 = e.pageY - canvasPosition.top;
     }
 
-    function GetEndPoints(event) {
+    function GetEndPoints(e) {
         // This function sets end points
 
-          x2 = event.pageX - canvasPosition.left;
-          y2 = event.pageY - canvasPosition.top;
+          x2 = e.pageX - canvasPosition.left;
+          y2 = e.pageY - canvasPosition.top;
     }
 
     colorBtns = ['black', 'red', 'green', 'blue', 'yellow', 'transparent'];
