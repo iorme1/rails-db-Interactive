@@ -5,7 +5,7 @@ function canvasApp() {
       y1,
       x2,
       y2,
-      isDown = false, //flag we use to keep track
+      isDown = false,
       windowHeight,
       windowWidth,
       colorBtns;
@@ -35,14 +35,14 @@ function canvasApp() {
         event = event || window.event;
 
         // Now event is the event object in all browsers.
-        GetStartPoints();
+        GetStartPoints(event);
     };
 
     canvas.onmouseup = function (event) {
         event = event || window.event;
 
         // Now event is the event object in all browsers.
-        GetEndPoints();
+        GetEndPoints(event);
 
         context.beginPath();
         context.moveTo(x1, y1);
@@ -50,14 +50,14 @@ function canvasApp() {
         context.stroke();
     };
 
-    function GetStartPoints() {
+    function GetStartPoints(event) {
           // This function sets start points
 
           x1 = event.pageX - canvasPosition.left;
           y1 = event.pageY - canvasPosition.top;
     }
 
-    function GetEndPoints() {
+    function GetEndPoints(event) {
         // This function sets end points
 
           x2 = event.pageX - canvasPosition.left;
