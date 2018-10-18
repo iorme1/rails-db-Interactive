@@ -18,7 +18,7 @@ window.onload = function () {
 
 const modelMenuHandler = e => {
     e = e || window.event
-    
+
     if (e.target !== e.currentTarget) {
       let button = e.target.id;
 
