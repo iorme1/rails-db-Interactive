@@ -190,17 +190,17 @@ const canvasStatus = {
 
 const handleModelFiles = (evt) => {
 
-    let files = evt.target.files; // FileList object
+    let files = evt.target.files;
     models.modelCount = files.length;
-    // Loop through the FileList and create our html elements
+
     for (let i = 0, f; f = files[i]; i++) {
 
         let reader = new FileReader();
-        // Closure to capture the file information.
+
         reader.onload = (theFile => {
           return e => {
 
-              let modelFileLines = e.target.result.split('\n'); // to iterate through model file line by line
+              let modelFileLines = e.target.result.split('\n'); // used to iterate through model file line by line
               let model = ModelData(models.modelCount, modelFileLines);
               let modelContainer = modelBuilder(model);
               cssHandler(model, modelContainer);
@@ -451,11 +451,11 @@ function dragElement(elmnt) {
 
     function dragMouseDown(e) {
       e = e || window.event;
-      // get the mouse cursor position at startup:
+
       pos3 = e.clientX;
       pos4 = e.clientY;
+
       document.onmouseup = closeDragElement;
-      // call a function whenever the cursor moves:
       document.onmousemove = elementDrag;
     }
 
@@ -464,18 +464,17 @@ function dragElement(elmnt) {
         return;
       }
       e = e || window.event;
-      // calculate the new cursor position:
+
       pos1 = pos3 - e.clientX;
       pos2 = pos4 - e.clientY;
       pos3 = e.clientX;
       pos4 = e.clientY;
-      // set the element's new position:
+
       elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
       elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
     }
 
     function closeDragElement() {
-      /* stop moving when mouse button is released:*/
       document.onmouseup = null;
       document.onmousemove = null;
     }

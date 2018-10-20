@@ -49,17 +49,13 @@ function canvasApp() {
     };
 
     function GetStartPoints(e) {
-          // This function sets start points
-
-          x1 = e.pageX - canvasPosition.left;
-          y1 = e.pageY - canvasPosition.top;
+        x1 = e.pageX - canvasPosition.left;
+        y1 = e.pageY - canvasPosition.top;
     }
 
     function GetEndPoints(e) {
-        // This function sets end points
-
-          x2 = e.pageX - canvasPosition.left;
-          y2 = e.pageY - canvasPosition.top;
+        x2 = e.pageX - canvasPosition.left;
+        y2 = e.pageY - canvasPosition.top;
     }
 
     colorBtns = ['black', 'red', 'green', 'blue', 'yellow', 'transparent'];
