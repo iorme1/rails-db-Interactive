@@ -6,9 +6,7 @@ window.onload = function () {
     document.querySelector('.controls').addEventListener('click', modelMenuHandler, false);
     document.getElementById('model-files').addEventListener('change', handleModelFiles, false);
     document.getElementById('schema-file').addEventListener('change', handleSchemaFile, false);
-    document.getElementById('toggle-controls').addEventListener('click', function() {
-      toggleControlMenu();
-    });
+    document.getElementById('toggle-controls').addEventListener('click', toggleControlMenu);
     document.getElementById('toggle-canvas').addEventListener('click', function() {
       toggleCanvas(this);
     });
@@ -355,16 +353,13 @@ const getWidth = (modelCount) => {
 
 const getFontSize = (modelCount) => {
 
-    let font;
-
     if (modelCount <= 20) {
-      font = '12px';
+      return '12px';
     } else if (modelCount >= 21 && modelCount <= 31) {
-       font = '14px';
+       return '14px';
     } else {
-      font =  '12px';
+      return '12px';
     }
-    return font;
 };
 
 
@@ -563,7 +558,7 @@ const showTotalAssoc = currentModel => {
 const countAssociations = (modelClass, associations) => {
     /* filters the associations for references of pluralized or singular version of model name
      or any association on the current model.  */
-    let associationsTo = associations.map(asc => parseAssociation(asc) )
+    let associationsTo = associations.map(parseAssociation)
                         .filter(asc =>
                             asc.includes(pluralize.singular(modelClass)) ||
                             asc.includes(modelClass)

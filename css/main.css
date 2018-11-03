@@ -60,11 +60,11 @@ input[type='file'] {
   display: none;
 }
 
-i {
+.colors {
   padding: 5px;
 }
 
-i:hover {
+.colors:hover {
   cursor: pointer;
 }
 

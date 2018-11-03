@@ -1,29 +1,19 @@
 function canvasApp() {
-    let canvas,
-      context,
-      x1,
-      y1,
-      x2,
-      y2,
-      isDown = false,
-      windowHeight,
-      windowWidth,
-      colorBtns;
 
-    windowHeight = window.innerHeight;
-    windowWidth = window.innerWidth;
+    let canvas = document.getElementById('canvas'),
+        context = canvas.getContext('2d'),
+        isDown = false,
+        windowHeight = window.innerHeight,
+        windowWidth = window.innerHeight,
+        colorBtns = ['black', 'red', 'green', 'blue', 'yellow', 'transparent'];
 
-    canvas = document.getElementById('canvas');
     canvas.style.position = 'absolute';
     canvas.height = windowHeight;
     canvas.width = windowWidth;
-    canvasPosition = canvas.getBoundingClientRect()
-
-    context = canvas.getContext('2d');
+    canvasPosition = canvas.getBoundingClientRect();
     context.lineWidth = 2;
 
     window.addEventListener('resize', resizeCanvas, false);
-
 
     function resizeCanvas() {
         canvas.height = window.innerHeight;
@@ -58,7 +48,6 @@ function canvasApp() {
         y2 = e.pageY - canvasPosition.top;
     }
 
-    colorBtns = ['black', 'red', 'green', 'blue', 'yellow', 'transparent'];
 
     const colorBtnHandler = colorBtns => {
         colorBtns.forEach(color => {
@@ -73,6 +62,7 @@ function canvasApp() {
 
         if (!canvasStatus.active) {
           swal('Canvas Not Active', 'To be able to draw, you must activate the canvas. Click the canvas button in the top navigation.', "warning")
+          return;
         }
 
         if (color === 'transparent') {
@@ -90,7 +80,7 @@ function canvasApp() {
         document.querySelectorAll('.colors').forEach( btn => {
             btn.style.color = '';
         });
-        button.id == 'transparent' ? button.style.color = 'white' : button.style.color = button.id
+        button.style.color = (button.id === 'transparent') ? 'white' : button.id;
     };
     colorBtnHandler(colorBtns);
 }
