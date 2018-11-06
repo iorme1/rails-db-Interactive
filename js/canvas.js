@@ -4,7 +4,7 @@ function canvasApp() {
         context = canvas.getContext('2d'),
         isDown = false,
         windowHeight = window.innerHeight,
-        windowWidth = window.innerHeight,
+        windowWidth = window.innerWidth,
         colorBtns = ['black', 'red', 'green', 'blue', 'yellow', 'transparent'];
 
     canvas.style.position = 'absolute';

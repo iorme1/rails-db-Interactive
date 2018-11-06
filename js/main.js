@@ -7,10 +7,7 @@ window.onload = function () {
     document.getElementById('model-files').addEventListener('change', handleModelFiles, false);
     document.getElementById('schema-file').addEventListener('change', handleSchemaFile, false);
     document.getElementById('toggle-controls').addEventListener('click', toggleControlMenu);
-    document.getElementById('toggle-canvas').addEventListener('click', function() {
-      toggleCanvas(this);
-    });
-
+    document.getElementById('toggle-canvas').addEventListener('click', toggleCanvas);
     canvasApp();
 }
 
@@ -49,19 +46,18 @@ const toggleControlMenu = () => {
     document.querySelector('.controls').classList.toggle('hide-controls');
 };
 
-const toggleCanvas = button => {
+function toggleCanvas() {
 
     document.getElementById('canvas').classList.toggle('hide');
 
     if (canvas.classList.contains('hide')) {
-      button.style.background = 'white'
+      this.style.background = 'white'
       canvasStatus.active = false;
     } else {
-      button.style.background = '#99e600';
+      this.style.background = '#99e600';
       canvasStatus.active = true;
     }
-
-};
+}
 
 
 const dragActive = button => {
